@@ -1,3 +1,8 @@
+---
+name: conventional-commits
+description: Generate and validate commit messages following Conventional Commits
+---
+
 # Conventional Commits
 
 Generate and validate commit messages following [Conventional Commits](https://www.conventionalcommits.org/).

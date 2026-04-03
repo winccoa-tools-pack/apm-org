@@ -1,3 +1,8 @@
+---
+name: create-pr
+description: Guide for creating well-structured Pull Requests
+---
+
 # Create Pull Request
 
 Guide for creating well-structured Pull Requests.

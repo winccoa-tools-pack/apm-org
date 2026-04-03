@@ -1,3 +1,8 @@
+---
+name: git-flow
+description: Navigate the Git Flow branching workflow correctly
+---
+
 # Git Flow
 
 Navigate the Git Flow branching workflow correctly.
