@@ -24,17 +24,13 @@ apm install
 
 ## Contents
 
-- `instructions/` — Context for AI agents
-- `skills/` — Reusable AI capabilities  
+- `skills/` — Reusable AI capabilities
+- `instructions/` — Context for AI agents  
 - `prompts/` — Prompt templates
 
-## Structure
+## Skills
 
-```
-apm-org/
-├── apm.yml
-├── README.md
-├── instructions/
-├── skills/
-└── prompts/
-```
+| Skill | Description |
+|-------|-------------|
+| [conventional-commits](skills/conventional-commits.md) | Commit message format |
+| [git-flow](skills/git-flow.md) | Git Flow branching workflow |

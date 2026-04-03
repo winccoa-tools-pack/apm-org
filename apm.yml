@@ -1,6 +1,6 @@
 # apm.yml — WinCC OA Tools Pack Organization
 # Global APM package inherited by ALL repositories
-# 
+#
 # Usage in child repos:
 #   dependencies:
 #     apm:
@@ -17,6 +17,8 @@ instructions: []
 skills:
   - path: skills/conventional-commits.md
     description: "Commit message format following Conventional Commits"
+  - path: skills/git-flow.md
+    description: "Git Flow branching workflow"
 
 prompts: []
 
