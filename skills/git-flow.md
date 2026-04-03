@@ -120,3 +120,27 @@ After release/hotfix merges to `main`, an action automatically creates a PR to u
 ```
 - Created by workflow, always includes version
 - Examples: `release/v1.2.0`, `hotfix/v1.2.1`
+
+## Contributing via Forks
+
+External contributors can use forks to submit PRs.
+
+### Fork Workflow
+
+1. Fork the repository
+2. Create branch from your fork's `develop`
+3. Make changes following conventional commits
+4. Create PR: `fork:develop` → `upstream:develop`
+
+### Fork Rules
+
+| Allowed | Not Allowed |
+|---------|-------------|
+| `fork:develop` → `develop` | `fork:main` → `main` |
+| `fork:feature/*` → `develop` | Any PR to `main` from fork |
+| `fork:bugfix/*` → `develop` | |
+
+**Important:** 
+- PRs from forks must always target `develop`, never `main`
+- Only release/hotfix workflows (run by maintainers) can merge to `main`
+- Fork PRs use **squash** merge
