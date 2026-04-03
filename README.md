@@ -47,14 +47,14 @@ dependencies:
 
 ## Contents
 
-- `skills/` — Reusable AI capabilities
-- `instructions/` — Context for AI agents  
-- `prompts/` — Prompt templates
+- `.apm/skills/` — Reusable AI capabilities
+- `.apm/instructions/` — Context for AI agents  
+- `.apm/prompts/` — Prompt templates
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| [conventional-commits](skills/conventional-commits.md) | Commit message format |
-| [git-flow](skills/git-flow.md) | Git Flow branching workflow |
-| [create-pr](skills/create-pr.md) | How to create a correct Pull Request |
+| [conventional-commits](.apm/skills/conventional-commits.md) | Commit message format |
+| [git-flow](.apm/skills/git-flow.md) | Git Flow branching workflow |
+| [create-pr](.apm/skills/create-pr.md) | How to create a correct Pull Request |

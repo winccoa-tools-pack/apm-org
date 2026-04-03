@@ -11,17 +11,3 @@ version: 0.1.0
 description: |
   Organization-wide AI agent configuration.
   Contains skills, prompts, and instructions shared across all repositories.
-
-instructions: []
-
-skills:
-  - path: skills/conventional-commits.md
-    description: "Commit message format following Conventional Commits"
-  - path: skills/git-flow.md
-    description: "Git Flow branching workflow"
-  - path: skills/create-pr.md
-    description: "How to create a correct Pull Request"
-
-prompts: []
-
-agents: []
