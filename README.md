@@ -60,3 +60,4 @@ dependencies:
 | [create-pr](.apm/skills/create-pr/SKILL.md) | How to create a correct Pull Request |
 | [versioning](.apm/skills/versioning/SKILL.md) | Decide the correct SemVer version bump |
 | [changelog](.apm/skills/changelog/SKILL.md) | Write and maintain CHANGELOG.md entries |
+| [labels](.apm/skills/labels/SKILL.md) | Apply and roll out org-wide labels to repositories |
