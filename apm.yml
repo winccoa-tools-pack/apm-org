@@ -19,6 +19,8 @@ skills:
     description: "Commit message format following Conventional Commits"
   - path: skills/git-flow.md
     description: "Git Flow branching workflow"
+  - path: skills/create-pr.md
+    description: "How to create a correct Pull Request"
 
 prompts: []
 

@@ -34,3 +34,4 @@ apm install
 |-------|-------------|
 | [conventional-commits](skills/conventional-commits.md) | Commit message format |
 | [git-flow](skills/git-flow.md) | Git Flow branching workflow |
+| [create-pr](skills/create-pr.md) | How to create a correct Pull Request |
