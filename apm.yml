@@ -1,0 +1,23 @@
+# apm.yml — WinCC OA Tools Pack Organization
+# Global APM package inherited by ALL repositories
+# 
+# Usage in child repos:
+#   dependencies:
+#     apm:
+#       - winccoa-tools-pack/apm-org
+
+name: winccoa-tools-pack-org
+version: 0.1.0
+description: |
+  Organization-wide AI agent configuration.
+  Contains skills, prompts, and instructions shared across all repositories.
+
+instructions: []
+
+skills:
+  - path: skills/conventional-commits.md
+    description: "Commit message format following Conventional Commits"
+
+prompts: []
+
+agents: []
