@@ -55,6 +55,8 @@ dependencies:
 
 | Skill | Description |
 |-------|-------------|
-| [conventional-commits](.apm/skills/conventional-commits.md) | Commit message format |
-| [git-flow](.apm/skills/git-flow.md) | Git Flow branching workflow |
-| [create-pr](.apm/skills/create-pr.md) | How to create a correct Pull Request |
+| [conventional-commits](.apm/skills/conventional-commits/SKILL.md) | Commit message format |
+| [git-flow](.apm/skills/git-flow/SKILL.md) | Git Flow branching workflow |
+| [create-pr](.apm/skills/create-pr/SKILL.md) | How to create a correct Pull Request |
+| [versioning](.apm/skills/versioning/SKILL.md) | Decide the correct SemVer version bump |
+| [changelog](.apm/skills/changelog/SKILL.md) | Write and maintain CHANGELOG.md entries |
