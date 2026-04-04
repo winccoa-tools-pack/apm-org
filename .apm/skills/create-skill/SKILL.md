@@ -50,12 +50,14 @@ Choose the right location based on who should benefit:
 | **Local only** | `.github/skills/<name>.md` directly | Only you, this machine | No (gitignored) |
 | **This repo** | `.apm/skills/<name>/SKILL.md` in this repo | All contributors of this repo | Yes |
 | **VS Code extensions** | `apm-vscode-extension/.apm/skills/<name>/SKILL.md` | All VS Code extension repos | Yes |
+| **npm packages** | `apm-npm-package/.apm/skills/<name>/SKILL.md` | All npm package repos | Yes |
 | **Org-wide** | `apm-org/.apm/skills/<name>/SKILL.md` | All repos in the org | Yes |
 
 **Decision guide:**
 - Personal preference (e.g. "I don't use GitKraken") → **Local only**
 - Specific to this repo's tech stack → **This repo**
 - Applies to all VS Code extensions → **apm-vscode-extension**
+- Applies to all npm packages → **apm-npm-package**
 - Applies to all repos in the org → **apm-org**
 
 ---
@@ -102,7 +104,7 @@ git commit -m "docs(skill): add my-new-skill"
 For org-wide or domain-wide skills:
 
 ```bash
-cd c:\ws\winccoa-tools-pack\apm-org        # or apm-vscode-extension
+cd c:\ws\winccoa-tools-pack\apm-org        # or apm-vscode-extension / apm-npm-package
 git checkout develop
 git checkout -b feature/skill-<name>
 mkdir -p .apm/skills/<name>
