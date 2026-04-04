@@ -1,0 +1,23 @@
+name: Publish Skills Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.apm/skills/**'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: winccoa-tools-pack/action-publish-skills-docs@main
+        with:
+          skills_dir: '.apm/skills'
+          target_repo: 'winccoa-tools-pack/winccoa-tools-pack.github.io'
+          target_docs_path: 'docs/skills/org'
+          section_title: 'Org-Wide Skills'
+          section_position: '1'
+          github_token: ${{ secrets.DOCS_PUBLISH_TOKEN }}
