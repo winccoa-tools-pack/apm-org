@@ -62,3 +62,4 @@ dependencies:
 | [changelog](.apm/skills/changelog/SKILL.md) | Write and maintain CHANGELOG.md entries |
 | [labels](.apm/skills/labels/SKILL.md) | Apply and roll out org-wide labels to repositories |
 | [create-skill](.apm/skills/create-skill/SKILL.md) | Capture and share knowledge as APM skills |
+| [github-issues](.apm/skills/github-issues/SKILL.md) | Where to create issues, how to organize and transfer them |
