@@ -101,19 +101,22 @@ git commit -m "docs(skill): add my-new-skill"
 
 ### Option B — Skill in a separate PR to an APM repo (shared skill)
 
-For org-wide or domain-wide skills:
+For org-wide or domain-wide skills. **All APM repos protect `main` — never push directly.**
 
 ```bash
 cd c:\ws\winccoa-tools-pack\apm-org        # or apm-vscode-extension / apm-npm-package
 git checkout develop
+git pull
 git checkout -b feature/skill-<name>
 mkdir -p .apm/skills/<name>
 # create SKILL.md
 git add .apm/skills/<name>/SKILL.md
 git commit -m "feat: add <name> skill"
 git push origin feature/skill-<name>
-# open PR → develop
+# open PR → develop, then merge develop → main via release flow
 ```
+
+> The `publish-skills-docs` workflow fires on push to `main` — it triggers automatically when the PR is merged.
 
 ---
 
