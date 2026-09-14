@@ -13,6 +13,23 @@ Guide for creating well-structured Pull Requests.
 - Branch follows naming convention (see [git-flow](git-flow.md))
 - All commits follow [conventional commits](conventional-commits.md)
 - Tests pass locally
+- Style is clean locally (see **Local style gate** below)
+
+## Local style gate
+
+Template-based npm packages and VS Code extensions run CI **`style-check`** (eslint / prettier / markdownlint).
+
+**Before commit and before push/PR**, prefer:
+
+```bash
+npm run style-fix
+```
+
+That typically runs `lint:fix` + `format` + `lint:md:fix` (exact composition may vary by package scripts).
+
+**Do not** rely on `npm run format` alone — markdownlint/eslint failures still burn a CI run.
+
+If `style-fix` is missing, run the package’s fix scripts that match CI `style-check`, then re-run `npm run style-check` locally when available.
 
 ## PR Title
 
@@ -52,6 +69,7 @@ Fill out the chosen template completely before requesting review.
 ## Checklist Before Requesting Review
 
 - [ ] Correct target branch
+- [ ] `npm run style-fix` (or equivalent) run; local `style-check` clean when available
 - [ ] CI checks pass
 - [ ] No merge conflicts
 - [ ] PR description filled out

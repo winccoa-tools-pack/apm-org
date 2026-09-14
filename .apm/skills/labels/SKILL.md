@@ -5,8 +5,10 @@ description: Apply and roll out the correct org-wide labels to repositories
 
 # Labels
 
-All labels across the organization are defined in a single source of truth.  
-**Never create ad-hoc labels directly in a repository** — use the rollout workflow instead.
+All **org catalog** labels are defined in a single source of truth.  
+**Never create ad-hoc catalog labels directly in a repository** — use the rollout workflow instead.
+
+Countdown labels used by **Auto-approve owner PRs** are different (see below).
 
 ## Source of Truth
 
@@ -41,6 +43,34 @@ Full documentation: [`docs/LABELS.md`](https://github.com/winccoa-tools-pack/.gi
 ### Add a new repo to the rollout
 
 Edit [`repos.txt`](https://github.com/winccoa-tools-pack/.github/blob/main/repos.txt) in the `.github` repo — one `org/repo` per line.
+
+## Auto-approve countdown labels (not from fan-out alone)
+
+Owner PR auto-approve uses countdown labels. They are **created by the first run** of the repo workflow **Auto-approve owner PRs** (`auto-approve-owner-prs.yml`), not by assuming fan-out already applied them.
+
+| Label | Meaning |
+|-------|---------|
+| `merge-in-3-days-without-review` | Day 0 of countdown |
+| `merge-in-2-days-without-review` | Day 1 |
+| `merge-in-1-day-without-review` | Day 2 |
+| (approve + merge path) | Day 3 — action approves; auto-merge takes over per workflow |
+
+**Rule:** Right after creating a repository from a template (or anytime these labels are missing), run the workflow once:
+
+```bash
+gh workflow run auto-approve-owner-prs.yml --repo winccoa-tools-pack/<repo>
+# or: Actions → "Auto-approve owner PRs" → Run workflow
+```
+
+Verify:
+
+```bash
+gh label list --repo winccoa-tools-pack/<repo> --limit 100 | findstr /i "merge-in"
+```
+
+Do this **before** the first owner PRs that should use countdown auto-approve.
+
+> Do **not** hand-create these as one-off replacements for the workflow unless debugging. Prefer the workflow so names/colors stay consistent with `mPokornyETM/auto-approve-stale-prs`.
 
 ## Add or Change a Label
 
