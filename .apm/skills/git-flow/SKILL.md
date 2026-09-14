@@ -57,6 +57,10 @@ Use the workflow: `Actions` → `Create Release Branch + PR`
 5. You may push additional CHANGELOG edits to the release branch
 6. After PR merge: upmerge to `develop` is created automatically
 
+**Merge release/hotfix PRs into `main` with a merge commit — never squash.**
+
+For npm packages, use the full publish verification checklist in the **first-release** skill from `apm-npm-package` (pre-release tarball → merge commit → release workflow → `npm view` → upmerge → optional LinkedIn post).
+
 **Note:** Release branches are protected and cannot be deleted.
 
 ### Hotfix (via GitHub Actions)
