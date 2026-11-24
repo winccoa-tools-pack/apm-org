@@ -1,95 +1,61 @@
 ---
 name: labels
-description: Apply and roll out the correct org-wide labels to repositories
+description: Apply and roll out the correct labels to a repository
 ---
 
 # Labels
 
-All **org catalog** labels are defined in a single source of truth.  
-**Never create ad-hoc catalog labels directly in a repository** — use the rollout workflow instead.
+Each repository defines its labels in `.github/labels.yml` and syncs them with
+`.github/workflows/sync-labels.yml`
+([crazy-max/ghaction-github-labeler](https://github.com/crazy-max/ghaction-github-labeler)).
+**Never create ad-hoc labels in the GitHub UI** — edit `labels.yml` instead.
 
-Countdown labels used by **Auto-approve owner PRs** are different (see below).
-
-## Source of Truth
-
+The org-wide label list and its descriptions are in
 [`winccoa-tools-pack/.github` → `labels/labels.yml`](https://github.com/winccoa-tools-pack/.github/blob/main/labels/labels.yml)
+and [`docs/LABELS.md`](https://github.com/winccoa-tools-pack/.github/blob/main/docs/LABELS.md).
+The per-repo `.github/labels.yml` from the template is the file that is actually applied.
 
-Full documentation: [`docs/LABELS.md`](https://github.com/winccoa-tools-pack/.github/blob/main/docs/LABELS.md)
+> The old fan-out workflows (`Fan-out labels to repositories`, `Run single-target label sync`)
+> and the secret `ORG_LABELS_PAT` no longer exist.
 
-## Available Labels
+## How it works
 
-| Category | Examples |
-|----------|---------|
-| Priority | `priority/critical`, `priority/high`, `priority/medium`, `priority/low` |
-| Type | `enhancement`, `bug`, `documentation`, `breaking-change`, `dependencies` |
-| Component | `core`, `api`, `testing`, `quality`, `configuration`, `integration` |
-| Status | `needs-triage`, `status/in-progress`, `status/review`, `status/blocked`, `status/ready` |
-| Special | `good-first-issue`, `help-wanted`, `security`, `performance`, `area/build` |
+- Repos created from `template-npm-shared-library` already contain both files.
+- The workflow runs on a push to `develop` that changes `.github/labels.yml`, every Monday 06:00 UTC, and manually.
+- It uses `GITHUB_TOKEN` (`issues: write`), no PAT is needed.
+- Automatic runs never delete labels (`skip-delete`). Only a manual run with `skip_delete: false` removes labels that are not in `labels.yml`.
 
-## Roll Out Labels to Repositories
+## New repository
 
-### All repos at once
+After "Use this template", run **Actions → Sync labels → Run workflow** once.
+Start with `dry_run: true` to preview, then run again with `dry_run: false`.
 
-1. Go to [`winccoa-tools-pack/.github`](https://github.com/winccoa-tools-pack/.github) → **Actions**
-2. Run workflow **"Fan-out labels to repositories"**
-3. Start with `dry-run: true` to preview — then re-run with `dry-run: false`
-4. Use `strict: true` to also delete labels not in `labels.yml`
+```bash
+gh workflow run sync-labels.yml --repo winccoa-tools-pack/<repo> -f dry_run=false
+gh label list --repo winccoa-tools-pack/<repo> --limit 100
+```
 
-### Single repo
+## Add or change a label
 
-1. Run workflow **"Run single-target label sync"**
-2. Set `target-repo` to `winccoa-tools-pack/<repo-name>`
+1. Edit `.github/labels.yml` (`name`, `color` without `#`, `description` up to 100 characters).
+2. Merge to `develop`. The workflow applies the change.
 
-### Add a new repo to the rollout
+## Labels used by automation
 
-Edit [`repos.txt`](https://github.com/winccoa-tools-pack/.github/blob/main/repos.txt) in the `.github` repo — one `org/repo` per line.
-
-## Auto-approve countdown labels (not from fan-out alone)
-
-Owner PR auto-approve uses countdown labels. They are **created by the first run** of the repo workflow **Auto-approve owner PRs** (`auto-approve-owner-prs.yml`), not by assuming fan-out already applied them.
-
-| Label | Meaning |
+| Label | Used by |
 |-------|---------|
-| `merge-in-3-days-without-review` | Day 0 of countdown |
-| `merge-in-2-days-without-review` | Day 1 |
-| `merge-in-1-day-without-review` | Day 2 |
-| (approve + merge path) | Day 3 — action approves; auto-merge takes over per workflow |
+| `breaking-change` | Release planner: major bump |
+| `enhancement` | Release planner: at least minor bump |
+| `release`, `chore` | Release PRs |
+| `merge-in-3-days-without-review`, `merge-in-2-days-without-review`, `merge-in-1-day-without-review`, `merged-without-review` | `auto-approve-owner-prs.yml` countdown |
+| `dependencies`, `size/small`, `area/build`, `dependabot/patch` | `dependabot.yml` |
+| `source`, `cli`, `ci`, `docs`, `tests`, `config` | `labeler.yml` (actions/labeler) |
 
-**Rule:** Right after creating a repository from a template (or anytime these labels are missing), run the workflow once:
+Keep these in `labels.yml`, with names identical to the ones in `dependabot.yml` and `labeler.yml`.
+Create the countdown labels before the first owner PR that should use the countdown (the sync workflow does this).
 
-```bash
-gh workflow run auto-approve-owner-prs.yml --repo winccoa-tools-pack/<repo>
-# or: Actions → "Auto-approve owner PRs" → Run workflow
-```
+## Existing repository or other template
 
-Verify:
-
-```bash
-gh label list --repo winccoa-tools-pack/<repo> --limit 100 | findstr /i "merge-in"
-```
-
-Do this **before** the first owner PRs that should use countdown auto-approve.
-
-> Do **not** hand-create these as one-off replacements for the workflow unless debugging. Prefer the workflow so names/colors stay consistent with `mPokornyETM/auto-approve-stale-prs`.
-
-## Add or Change a Label
-
-1. Edit `labels/labels.yml` in `winccoa-tools-pack/.github`
-2. Commit and push to `main`
-3. Run the fan-out workflow to apply across all repos
-
-## Quick Fix via CLI (one-off)
-
-```bash
-# Create a missing label in one repo
-gh label create "priority/high" --color "eb6420" --description "Important for milestone success" --repo winccoa-tools-pack/<repo>
-
-# Edit an existing label
-gh label edit "needs-triage" --color "FBCA04" --repo winccoa-tools-pack/<repo>
-```
-
-> Quick fixes do not update `labels.yml`. Always follow up with a proper edit to keep the source of truth in sync.
-
-## Required Secret
-
-The rollout workflows require the org secret `ORG_LABELS_PAT` (scope: `repo`).
+Copy `.github/labels.yml` and `.github/workflows/sync-labels.yml` from
+[template-npm-shared-library](https://github.com/winccoa-tools-pack/template-npm-shared-library)
+and run the workflow once.
